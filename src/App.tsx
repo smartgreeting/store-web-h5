@@ -1,7 +1,7 @@
 /*
  * @Author: lihuan
  * @Date: 2021-10-04 11:23:39
- * @LastEditTime: 2021-11-14 14:30:12
+ * @LastEditTime: 2021-11-17 21:46:34
  * @Email: 17719495105@163.com
  */
 
@@ -13,7 +13,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import store from './store/index';
 import Counter from './views/counter/Counter';
-import Login from '@/views/login/Index';
+import Login from '@/views/login/Login';
 import request from '@/utils/network/index';
 const App: FC = () => {
   useEffect(() => {
@@ -40,7 +40,7 @@ const App: FC = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <Counter></Counter>
+        {/* <Counter></Counter> */}
         <Login></Login>
       </BrowserRouter>
     </Provider>

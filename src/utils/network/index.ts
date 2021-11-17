@@ -2,7 +2,7 @@
  * @Author: lihuan
  * @Date: 2021-11-13 20:49:18
  * @LastEditors: lihuan
- * @LastEditTime: 2021-11-14 17:17:44
+ * @LastEditTime: 2021-11-17 22:52:42
  * @Email: 17719495105@163.com
  */
 import axios from 'axios';
@@ -11,7 +11,6 @@ import { cloneDeep } from 'lodash-es';
 
 export interface Result<T = any> {
   code: number;
-  type: 'success' | 'error' | 'warning';
   message: string;
   result: T;
 }
