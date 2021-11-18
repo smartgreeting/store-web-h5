@@ -1,8 +1,8 @@
 /*
  * @Author: lihuan
  * @Date: 2021-11-13 20:49:18
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-11-18 17:05:48
+ * @LastEditors: lihuan
+ * @LastEditTime: 2021-11-18 21:57:59
  * @Email: 17719495105@163.com
  */
 import axios from 'axios';
@@ -14,9 +14,11 @@ export interface Result<T = any> {
   msg: string;
   data: T;
 }
-
+const DURATION = 2000;
 class LHRequest {
   private axiosInstance: AxiosInstance;
+  private timer: number = 0;
+  private isShow: boolean = false;
 
   constructor(options?: AxiosRequestConfig) {
     this.axiosInstance = axios.create(options);
@@ -37,7 +39,18 @@ class LHRequest {
         }
         return Promise.reject(res.data).finally(() => {
           // 全局错误提示
-          creatToastShow(`${code}: ${msg}`);
+          if (this.isShow === false) {
+            creatToastShow({
+              content: `${code}: ${msg}`,
+              icon: 'loading',
+              duration: DURATION,
+            });
+            this.isShow = true;
+          }
+
+          this.timer = window.setTimeout(() => {
+            this.isShow = false;
+          }, DURATION);
         });
       },
       (err) => {

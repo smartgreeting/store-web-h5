@@ -1,13 +1,12 @@
 /*
  * @Author: lihuan
  * @Date: 2021-10-04 08:45:41
- * @LastEditTime: 2021-10-04 11:20:04
+ * @LastEditTime: 2021-11-18 20:45:39
  * @Email: 17719495105@163.com
  */
 
-
 module.exports = {
-  printWidth: 150,
+  printWidth: 120,
   tabWidth: 2,
   useTabs: false,
   semi: true,
@@ -25,5 +24,4 @@ module.exports = {
   htmlWhitespaceSensitivity: 'strict',
   endOfLine: 'lf',
   rangeStart: 0,
-
 };
