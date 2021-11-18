@@ -1,8 +1,8 @@
 /*
  * @Author: lihuan
  * @Date: 2021-11-16 20:17:07
- * @LastEditors: lihuan
- * @LastEditTime: 2021-11-17 21:35:12
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-18 15:22:48
  * @Email: 17719495105@163.com
  */
 import { Dialog, Toast } from 'antd-mobile';
@@ -21,8 +21,11 @@ function createDialogConfirm(options: Partial<DialogProps>) {
   return Dialog.confirm(options);
 }
 
-function creatToast(optinos: ToastPropsPartial) {
-  return { ToastShow: Toast.show(optinos), ToastClear: Toast.clear() };
+function creatToastShow(optinos: ToastPropsPartial) {
+  return Toast.show(optinos);
+}
+function creatToastClear() {
+  return Toast.clear();
 }
 
 /**
@@ -33,6 +36,7 @@ export function customMessage() {
     createDialogShow,
     createDialogAlert,
     createDialogConfirm,
-    creatToast,
+    creatToastShow,
+    creatToastClear,
   };
 }

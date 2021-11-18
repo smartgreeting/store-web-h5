@@ -1,18 +1,18 @@
 /*
  * @Author: lihuan
  * @Date: 2021-11-13 20:49:18
- * @LastEditors: lihuan
- * @LastEditTime: 2021-11-17 22:52:42
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-18 17:05:48
  * @Email: 17719495105@163.com
  */
 import axios from 'axios';
 import type { AxiosInstance, AxiosRequestConfig, AxiosError, AxiosResponse } from 'axios';
 import { cloneDeep } from 'lodash-es';
-
+import { customMessage } from '@/utils/web/customMessage';
 export interface Result<T = any> {
   code: number;
-  message: string;
-  result: T;
+  msg: string;
+  data: T;
 }
 
 class LHRequest {
@@ -29,8 +29,16 @@ class LHRequest {
       }
     );
     this.axiosInstance.interceptors.response.use(
-      (res: AxiosResponse<any>) => {
-        return res.data;
+      (res: AxiosResponse<Result>) => {
+        const { creatToastShow } = customMessage();
+        const { code, msg, data } = res.data;
+        if (code === 2000) {
+          return data;
+        }
+        return Promise.reject(res.data).finally(() => {
+          // 全局错误提示
+          creatToastShow(`${code}: ${msg}`);
+        });
       },
       (err) => {
         console.log(err);

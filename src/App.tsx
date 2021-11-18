@@ -1,7 +1,7 @@
 /*
  * @Author: lihuan
  * @Date: 2021-10-04 11:23:39
- * @LastEditTime: 2021-11-17 21:46:34
+ * @LastEditTime: 2021-11-18 17:22:26
  * @Email: 17719495105@163.com
  */
 
@@ -35,6 +35,9 @@ const App: FC = () => {
       })
       .then((res) => {
         console.log(res);
+      })
+      .catch((e) => {
+        console.log(e, 5555);
       });
   });
   return (
