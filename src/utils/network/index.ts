@@ -2,7 +2,7 @@
  * @Author: lihuan
  * @Date: 2021-11-13 20:49:18
  * @LastEditors: lihuan
- * @LastEditTime: 2021-11-18 21:57:59
+ * @LastEditTime: 2021-11-21 14:30:19
  * @Email: 17719495105@163.com
  */
 import axios from 'axios';
@@ -54,6 +54,11 @@ class LHRequest {
         });
       },
       (err) => {
+        const { creatToastShow } = customMessage();
+        creatToastShow({
+          content: err.message,
+          duration: DURATION,
+        });
         console.log(err);
       }
     );

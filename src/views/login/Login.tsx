@@ -2,7 +2,7 @@
  * @Author: lihuan
  * @Date: 2021-11-17 21:46:07
  * @LastEditors: lihuan
- * @LastEditTime: 2021-11-19 23:36:59
+ * @LastEditTime: 2021-11-21 20:14:49
  * @Email: 17719495105@163.com
  */
 import { FC, memo, useCallback } from 'react';
@@ -13,8 +13,7 @@ import type { AppStore } from '@/store/reducer';
 import { getCaptuhaActions } from '@/views/login/store/action';
 import { LoginWarpper, LoginForm } from './style';
 import CountDown from './countDown';
-const COUNT = 10;
-let timer = 0;
+
 const Login: FC = () => {
   // form
   const [form] = Form.useForm<{ phone: string; smsCode: string }>();
@@ -34,13 +33,13 @@ const Login: FC = () => {
 
   // 提交
   const onFinish = useCallback(() => {
-    const { phone, smsCode } = form.getFieldsValue();
+    const { phone, smsCode = '' } = form.getFieldsValue();
     const regPhone = /^1[3-9]\d{9}$/;
     if (!regPhone.test(phone)) {
       Toast.show('手机号码格式不正确');
       return false;
     }
-    if (smsCode.length < 4 || smsCode.length > 6) {
+    if (smsCode?.length < 4 || smsCode?.length > 6) {
       Toast.show('验证码格式不正确');
       return false;
     }
@@ -70,8 +69,8 @@ const Login: FC = () => {
           onFinish={onFinish}
           footer={
             <div style={{ marginTop: 50 }}>
-              <Button block type="submit" color="primary">
-                提交
+              <Button block size="middle" type="submit" color="primary">
+                登 录
               </Button>
             </div>
           }>
