@@ -1,8 +1,8 @@
 /*
  * @Author: lihuan
  * @Date: 2021-11-19 22:44:29
- * @LastEditors: lihuan
- * @LastEditTime: 2021-11-21 20:07:20
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-22 09:19:02
  * @Email: 17719495105@163.com
  */
 
@@ -16,7 +16,7 @@ const COUNT = 10;
 const CountDown: FC<{ getSmsCode: () => boolean | undefined }> = ({ getSmsCode }) => {
   // 定义状态
   const [disable, setDisable] = useState(false);
-  let [count, setCount] = useState(COUNT);
+  const [count, setCount] = useState(COUNT);
   const [delay, setDelay] = useState(0);
   // 事件
   const onClick = () => {
@@ -35,7 +35,7 @@ const CountDown: FC<{ getSmsCode: () => boolean | undefined }> = ({ getSmsCode }
         setCount(COUNT);
         setDisable(false);
       }
-      setCount(count - 1);
+      setCount((c) => --c);
     },
     delay,
     { immediate: true }

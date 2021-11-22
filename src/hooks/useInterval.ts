@@ -1,8 +1,8 @@
 /*
  * @Author: lihuan
  * @Date: 2021-11-21 14:19:24
- * @LastEditors: lihuan
- * @LastEditTime: 2021-11-21 21:24:08
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-22 09:18:43
  * @Email: 17719495105@163.com
  */
 
@@ -34,7 +34,7 @@ const useInterval = (
 };
 // 使用setTimeout模拟setInterval
 function useSetInterval(
-  callback: () => () => void,
+  callback: () => void,
   delay: number | undefined,
   options?: {
     immediate?: boolean;
@@ -42,9 +42,7 @@ function useSetInterval(
 ) {
   const savedCallback = useRef<any>();
   const immediate = options?.immediate;
-  useEffect(() => {
-    savedCallback.current = callback;
-  }, [callback]);
+  savedCallback.current = callback;
 
   useEffect(() => {
     if (typeof delay !== 'number' || delay <= 0) return;
@@ -73,22 +71,25 @@ function useSetInterval(
     };
   }, [delay, immediate]);
 }
-// 使用方式
-// useSetInterval(() => {
-//
-//   if (count <= 0) {
-//     return () => {
-//       // useSetInterval 会自己消除副作用，这个函数可以写一些定时器消除后的代码逻辑
-//       setCount(6);
-//       setDelay(null);
-//       setSendingCaptcha(false);
-//     };
-//   }
-//   setCount(count - 1);
-// }, delay);
+//使用方式
+// useSetInterval(
+//   () => {
+//     if (count <= 0) {
+//       return () => {
+//         // useSetInterval 会自己消除副作用，这个函数可以写一些定时器消除后的代码逻辑
+//         setCount(10);
+//         setDelay(0);
+//         setDisable(false);
+//       };
+//     }
+//     setCount(count - 1);
+//   },
+//   delay,
+//   { immediate: true }
+// );
 
-// const sendCaptcha = () => {
-//   setSendingCaptcha(true);
+// const onClick = () => {
+//   setDisable(true);
 //   setDelay(1000);
 // };
 
