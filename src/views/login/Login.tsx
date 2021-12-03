@@ -1,8 +1,8 @@
 /*
  * @Author: lihuan
  * @Date: 2021-11-17 21:46:07
- * @LastEditors: lihuan
- * @LastEditTime: 2021-11-21 20:14:49
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-29 10:51:41
  * @Email: 17719495105@163.com
  */
 import { FC, memo, useCallback } from 'react';
@@ -13,6 +13,7 @@ import type { AppStore } from '@/store/reducer';
 import { getCaptuhaActions } from '@/views/login/store/action';
 import { LoginWarpper, LoginForm } from './style';
 import CountDown from './countDown';
+import { isPhone } from '@/utils/is';
 
 const Login: FC = () => {
   // form
@@ -34,9 +35,13 @@ const Login: FC = () => {
   // 提交
   const onFinish = useCallback(() => {
     const { phone, smsCode = '' } = form.getFieldsValue();
-    const regPhone = /^1[3-9]\d{9}$/;
-    if (!regPhone.test(phone)) {
+
+    if (!isPhone(phone)) {
       Toast.show('手机号码格式不正确');
+      return false;
+    }
+    if (smsCode === '') {
+      Toast.show('请先输入短信验证码');
       return false;
     }
     if (smsCode?.length < 4 || smsCode?.length > 6) {
@@ -50,8 +55,7 @@ const Login: FC = () => {
   const getSmsCode = useCallback(() => {
     const { phone } = form.getFieldsValue();
 
-    const regPhone = /^1[3-9]\d{9}$/;
-    if (!regPhone.test(phone)) {
+    if (!isPhone(phone)) {
       Toast.show('手机号码格式不正确');
       return false;
     }

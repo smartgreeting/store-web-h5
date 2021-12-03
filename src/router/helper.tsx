@@ -1,8 +1,8 @@
 /*
  * @Author: lihuan
  * @Date: 2021-11-28 18:30:07
- * @LastEditors: lihuan
- * @LastEditTime: 2021-11-28 21:31:57
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-12-01 16:18:21
  * @Email: 17719495105@163.com
  */
 
@@ -26,7 +26,7 @@ const renderRoutes = (routes: any, extraProps = {}, switchProps = {}) => {
     </Suspense>
   ) : null;
 };
-const requiresAuth = true; //是否已经登录
+const requiresAuth = false; //是否已经登录
 
 const routeRender = (route: any, props: any, extraProps: any) => {
   // 判断渲染route

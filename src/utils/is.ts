@@ -1,8 +1,8 @@
 /*
  * @Author: lihuan
  * @Date: 2021-11-16 20:32:31
- * @LastEditors: lihuan
- * @LastEditTime: 2021-11-16 21:16:35
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-29 10:02:56
  * @Email: 17719495105@163.com
  */
 const toString = Object.prototype.toString;
@@ -98,3 +98,8 @@ export function isMap(val: unknown): val is Map<any, any> {
 export const isServer = typeof window === 'undefined';
 
 export const isClient = !isServer;
+
+export const isPhone = (phone: string) => {
+  const reg = /^1[3-9]\d{9}$/;
+  return reg.test(phone);
+};
