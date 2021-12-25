@@ -1,7 +1,7 @@
 /*
  * @Author: lihuan
  * @Date: 2021-11-18 13:12:09
- * @LastEditTime: 2021-11-18 15:54:50
+ * @LastEditTime: 2021-12-25 16:16:29
  * @Email: 17719495105@163.com
  */
 
@@ -9,31 +9,31 @@ import * as actionTypes from './actionTypes';
 
 export interface LoginState {
   pending: boolean;
-  code: string;
+  smsCode: string;
   msg: string | null;
 }
 
-export interface ICaptuhaSuccessPayload {
-  code: string;
+export interface ISmsSuccessPayload {
+  smsCode: string;
 }
-export interface ICaptuhaFailPayload {
+export interface ISmsFailPayload {
   msg: string;
 }
-export interface ICaptuhaPendingPayload {
+export interface ISmsPendingPayload {
   phone: string;
 }
 
-export interface ICaptuhaSuccess {
-  type: typeof actionTypes.FETCH_CAPTUHA_SUCCESS;
-  payload: ICaptuhaSuccessPayload;
+export interface ISmsSuccess {
+  type: typeof actionTypes.FETCH_SMS_SUCCESS;
+  payload: ISmsSuccessPayload;
 }
-export interface ICaptuhaFail {
-  type: typeof actionTypes.FETCH_CAPTUHA_FAIL;
-  payload: ICaptuhaFailPayload;
+export interface ISmsFail {
+  type: typeof actionTypes.FETCH_SMS_FAIL;
+  payload: ISmsFailPayload;
 }
-export interface ICaptuhaPending {
-  type: typeof actionTypes.FETCH_CAPTUHA_PENDING;
-  payload: ICaptuhaPendingPayload;
+export interface ISmsPending {
+  type: typeof actionTypes.FETCH_SMS_PENDING;
+  payload: ISmsPendingPayload;
 }
 
-export type LoginActions = ICaptuhaSuccess | ICaptuhaFail | ICaptuhaPending;
+export type LoginActions = ISmsSuccess | ISmsFail | ISmsPending;

@@ -1,8 +1,8 @@
 /*
  * @Author: lihuan
  * @Date: 2021-11-17 21:46:07
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-11-29 10:51:41
+ * @LastEditors: lihuan
+ * @LastEditTime: 2021-12-25 16:20:31
  * @Email: 17719495105@163.com
  */
 import { FC, memo, useCallback } from 'react';
@@ -10,7 +10,7 @@ import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
 import { Button, Form, Input, NavBar, Space, Toast } from 'antd-mobile';
 import type { AppStore } from '@/store/reducer';
-import { getCaptuhaActions } from '@/views/login/store/action';
+import { getSmsActions } from '@/views/login/store/action';
 import { LoginWarpper, LoginForm } from './style';
 import CountDown from './countDown';
 import { isPhone } from '@/utils/is';
@@ -20,7 +20,7 @@ const Login: FC = () => {
   const [form] = Form.useForm<{ phone: string; smsCode: string }>();
 
   // 获取状态
-  const { code, pending, msg } = useSelector(
+  const { smsCode, pending, msg } = useSelector(
     (state: AppStore) => ({
       ...state.login,
     }),
@@ -60,10 +60,10 @@ const Login: FC = () => {
       return false;
     }
 
-    dispatch(getCaptuhaActions({ phone }));
+    dispatch(getSmsActions({ phone }));
   }, [dispatch, form]);
 
-  console.log(code, pending, msg, 11111);
+  console.log(smsCode, pending, msg, 11111);
   return (
     <LoginWarpper>
       <NavBar onBack={back}>登 录</NavBar>
