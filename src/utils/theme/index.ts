@@ -2,46 +2,36 @@
  * @Author: lihuan
  * @Date: 2021-11-27 19:36:21
  * @LastEditors: lihuan
- * @LastEditTime: 2021-11-27 19:41:37
+ * @LastEditTime: 2021-12-25 19:41:47
  * @Email: 17719495105@163.com
  */
 
 import { PALETTE } from './palette';
-
-const colors = {
-  primary: PALETTE.primary,
-  danger: PALETTE.red,
-  text: PALETTE.black.base,
-  black: PALETTE.black,
-  white: PALETTE.white,
-};
-
-const fontSize = {
-  caption: '12px',
-  body: '14px',
-  headline: '16px',
-  title: '18px',
-};
-
-const textColor = {
-  base: colors.text,
-  primary: colors.primary,
-  muted: colors.black[40],
-  hint: colors.black[20],
-};
-const boxShadow = {
-  card: `0 2px 4px ${colors.black[10]}`,
-};
-const border = {
-  divider: `1px solid ${colors.black[6]}`,
-};
+import { ThemWrapper } from "./themWrapper";
 
 const THEME = {
-  colors,
-  fontSize,
-  textColor,
-  boxShadow,
-  border,
+  primary: '#1677ff',
+  success: '#00b578',
+  warning: '#ff8f1f',
+  danger: '#ff3141',
+  white: '#ffffff',
+  weak: '#999999',
+  light: '#cccccc',
+  borderColor: '#eeeeee',
+  fontSize: '13px',
+  text: '#333333'
+};
+const CUSTOMTHEME = {
+  primary: PALETTE.primary,
+  success: PALETTE.success,
+  warning: PALETTE.warning,
+  danger: PALETTE.danger,
+  white: PALETTE.white[90],
+  weak: PALETTE.weak,
+  light: PALETTE.light,
+  borderColor: PALETTE.borderColor,
+  fontSize: PALETTE.fontSize,
+  text: PALETTE.text
 };
 
-export { THEME };
+export { THEME, ThemWrapper, CUSTOMTHEME };

@@ -2,19 +2,23 @@
  * @Author: lihuan
  * @Date: 2021-11-27 18:55:08
  * @LastEditors: lihuan
- * @LastEditTime: 2021-11-27 19:36:58
+ * @LastEditTime: 2021-12-25 19:16:22
  * @Email: 17719495105@163.com
  */
 
-import { rgb, rgba } from 'polished';
+import { rgba } from 'polished';
 const PALETTE = {
   primary: '#1175ED',
-  red: rgb(241, 60, 60),
-  textgray: '#8590a6',
-  gray: '#f6f6f6',
-  lightgray: rgb(246, 246, 246),
+  success: '#00b578',
+  warning: '#ff8f1f',
+  danger: '#ff3141',
+  weak: '#999999',
+  light: '#cccccc',
+  borderColor: '#eeeeee',
+  fontSize: '13px',
+  text: '#333333',
   get white() {
-    const base = '#FFFFFF';
+    const base = '#ffffff';
     return {
       base,
       90: rgba(base, 0.9),

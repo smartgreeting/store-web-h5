@@ -2,20 +2,23 @@
  * @Author: lihuan
  * @Date: 2021-11-17 21:46:07
  * @LastEditors: lihuan
- * @LastEditTime: 2021-12-25 16:20:31
+ * @LastEditTime: 2021-12-25 21:56:33
  * @Email: 17719495105@163.com
  */
-import { FC, memo, useCallback } from 'react';
+import { FC, Fragment, memo, useCallback } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
-import { Button, Form, Input, NavBar, Space, Toast } from 'antd-mobile';
+import { Button, Form, Input, NavBar, Toast } from 'antd-mobile';
+import { useTheme } from 'styled-components';
+
 import type { AppStore } from '@/store/reducer';
 import { getSmsActions } from '@/views/login/store/action';
 import { LoginWarpper, LoginForm } from './style';
-import CountDown from './countDown';
+import CountDown from './CountDown';
 import { isPhone } from '@/utils/is';
 
 const Login: FC = () => {
+  const theme = useTheme();
   // form
   const [form] = Form.useForm<{ phone: string; smsCode: string }>();
 
@@ -72,11 +75,16 @@ const Login: FC = () => {
           form={form}
           onFinish={onFinish}
           footer={
-            <div style={{ marginTop: 50 }}>
-              <Button block size="middle" type="submit" color="primary">
-                登 录
-              </Button>
-            </div>
+            <Fragment>
+              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <span style={{ color: theme.primary }}>注 册</span>
+              </div>
+              <div style={{ marginTop: 50 }}>
+                <Button block size="middle" type="submit" color="primary">
+                  登 录
+                </Button>
+              </div>
+            </Fragment>
           }>
           <Form.Item name="phone" label="手机号码">
             <Input placeholder="请输入手机号码" />

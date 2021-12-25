@@ -2,7 +2,7 @@
  * @Author: lihuan
  * @Date: 2021-11-13 20:49:18
  * @LastEditors: lihuan
- * @LastEditTime: 2021-12-25 16:22:17
+ * @LastEditTime: 2021-12-25 21:53:05
  * @Email: 17719495105@163.com
  */
 import axios from 'axios';
@@ -99,5 +99,6 @@ class LHRequest {
 }
 
 export default new LHRequest({
-  baseURL: process.env.REACT_APP_BASE_URL
+  baseURL: process.env.REACT_APP_BASE_URL,
+  timeout: 10 * 1000
 });
