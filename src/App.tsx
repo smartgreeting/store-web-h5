@@ -1,22 +1,32 @@
 /*
  * @Author: lihuan
  * @Date: 2021-10-04 11:23:39
- * @LastEditTime: 2021-11-30 09:16:42
+ * @LastEditTime: 2021-12-27 16:30:34
  * @Email: 17719495105@163.com
  */
 
-import { memo, FC } from 'react';
+import { memo, FC, useState, useEffect, Suspense } from 'react';
 
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
+import { AuthProvider } from '@/router/helper';
 import store from './store/index';
+import Router from '@/router/Router';
+import { Provider as ThemeProvider } from '@/utils/theme';
 
-import { renderRoutes, routes } from '@/router/index';
 const App: FC = () => {
   return (
     <Provider store={store}>
-      <BrowserRouter>{renderRoutes(routes)}</BrowserRouter>
+      <ThemeProvider>
+        <Suspense fallback={<div>Loading...</div>}>
+          <BrowserRouter>
+            <AuthProvider>
+              <Router />
+            </AuthProvider>
+          </BrowserRouter>
+        </Suspense>
+      </ThemeProvider>
     </Provider>
   );
 };

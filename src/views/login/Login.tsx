@@ -2,25 +2,28 @@
  * @Author: lihuan
  * @Date: 2021-11-17 21:46:07
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-11-29 10:51:41
+ * @LastEditTime: 2021-12-27 09:30:11
  * @Email: 17719495105@163.com
  */
-import { FC, memo, useCallback } from 'react';
+import { FC, Fragment, memo, useCallback } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
-import { Button, Form, Input, NavBar, Space, Toast } from 'antd-mobile';
+import { Button, Form, Input, NavBar, Toast } from 'antd-mobile';
+import { useTheme } from 'styled-components';
+
 import type { AppStore } from '@/store/reducer';
-import { getCaptuhaActions } from '@/views/login/store/action';
+import { getSmsActions } from '@/views/login/store/action';
 import { LoginWarpper, LoginForm } from './style';
-import CountDown from './countDown';
+import CountDown from './CountDown';
 import { isPhone } from '@/utils/is';
 
 const Login: FC = () => {
+  const theme = useTheme();
   // form
   const [form] = Form.useForm<{ phone: string; smsCode: string }>();
 
   // 获取状态
-  const { code, pending, msg } = useSelector(
+  const { smsCode, pending, msg } = useSelector(
     (state: AppStore) => ({
       ...state.login,
     }),
@@ -60,10 +63,10 @@ const Login: FC = () => {
       return false;
     }
 
-    dispatch(getCaptuhaActions({ phone }));
+    dispatch(getSmsActions({ phone }));
   }, [dispatch, form]);
 
-  console.log(code, pending, msg, 11111);
+  console.log(smsCode, pending, msg, 11111);
   return (
     <LoginWarpper>
       <NavBar onBack={back}>登 录</NavBar>
@@ -72,11 +75,16 @@ const Login: FC = () => {
           form={form}
           onFinish={onFinish}
           footer={
-            <div style={{ marginTop: 50 }}>
-              <Button block size="middle" type="submit" color="primary">
-                登 录
-              </Button>
-            </div>
+            <Fragment>
+              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <span style={{ color: theme.primary }}>注 册</span>
+              </div>
+              <div style={{ marginTop: 50 }}>
+                <Button block size="middle" type="submit" color="primary">
+                  登 录
+                </Button>
+              </div>
+            </Fragment>
           }>
           <Form.Item name="phone" label="手机号码">
             <Input placeholder="请输入手机号码" />

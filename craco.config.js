@@ -1,7 +1,7 @@
 /*
  * @Author: lihuan
  * @Date: 2021-10-04 08:41:05
- * @LastEditTime: 2021-11-13 23:49:42
+ * @LastEditTime: 2021-12-25 16:22:39
  * @Email: 17719495105@163.com
  */
 
@@ -10,10 +10,10 @@ const resolve = (dir) => path.resolve(__dirname, dir);
 module.exports = {
   devServer: {
     proxy: {
-      '/api': {
+      '/v1': {
         target: 'http://localhost:8009/v1/',
         pathRewrite: {
-          '^/api': '',
+          '^/v1': '',
         },
       },
     },

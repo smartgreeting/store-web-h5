@@ -2,14 +2,14 @@
  * @Author: lihuan
  * @Date: 2021-11-27 19:46:40
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-11-29 09:44:38
+ * @LastEditTime: 2021-12-27 17:28:01
  * @Email: 17719495105@163.com
  */
 
-import { Redirect, RouteProps } from 'react-router';
+import type { RouteObject } from 'react-router';
 import { lazy } from 'react';
-import { renderRoutes } from './helper';
 
+import { AuthWrapper } from './helper';
 const Login = lazy(() => import('@/views/login/Login'));
 
 function Home() {
@@ -18,45 +18,39 @@ function Home() {
 function Test() {
   return <div>Test</div>;
 }
-interface IRouteConfig extends RouteProps {
-  path: string;
-  requiresAuth: boolean;
-  meta?: {
-    title?: string;
-    icon?: string;
-  };
-}
-const routes: IRouteConfig[] = [
+const routes: RouteObject[] = [
   {
     path: '/',
-    exact: true,
-    strict: true,
-    requiresAuth: false,
-    render: () => <Redirect to={{ pathname: 'home' }} />,
+    element: (
+      <AuthWrapper title="首页" isAuth={true}>
+        <Home />
+      </AuthWrapper>
+    ),
   },
   {
-    path: '/home',
-    exact: true,
-    strict: true,
-    requiresAuth: true,
-    component: Home,
-    meta: { title: 'home', icon: 'home' },
+    path: 'home',
+    element: (
+      <AuthWrapper title="首页" isAuth={true}>
+        <Home />
+      </AuthWrapper>
+    ),
   },
   {
-    path: '/login',
-    exact: true,
-    strict: true,
-    requiresAuth: false,
-    component: Login,
-    meta: { title: '登录', icon: 'login' },
+    path: 'login',
+    element: (
+      <AuthWrapper title="登录页" isAuth={false}>
+        <Login />
+      </AuthWrapper>
+    ),
   },
   {
-    path: '/test',
-    exact: true,
-    requiresAuth: true,
-    component: Test,
-    meta: { title: 'test', icon: 'user' },
+    path: 'test',
+    element: (
+      <AuthWrapper title="测试页" isAuth={true}>
+        <Test />
+      </AuthWrapper>
+    ),
   },
 ];
 
-export { renderRoutes, routes };
+export { routes };

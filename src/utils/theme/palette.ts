@@ -1,20 +1,24 @@
 /*
  * @Author: lihuan
  * @Date: 2021-11-27 18:55:08
- * @LastEditors: lihuan
- * @LastEditTime: 2021-11-27 19:36:58
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-12-27 13:56:22
  * @Email: 17719495105@163.com
  */
 
-import { rgb, rgba } from 'polished';
+import { rgba } from 'polished';
 const PALETTE = {
-  primary: '#1175ED',
-  red: rgb(241, 60, 60),
-  textgray: '#8590a6',
-  gray: '#f6f6f6',
-  lightgray: rgb(246, 246, 246),
+  primary: '#ff3141',
+  success: '#00b578',
+  warning: '#ff8f1f',
+  danger: '#ff3141',
+  weak: '#999999',
+  light: '#cccccc',
+  borderColor: '#eeeeee',
+  fontSize: '13px',
+  text: '#333333',
   get white() {
-    const base = '#FFFFFF';
+    const base = '#ffffff';
     return {
       base,
       90: rgba(base, 0.9),
@@ -46,5 +50,28 @@ const PALETTE = {
     };
   },
 };
-
-export { PALETTE };
+const THEME = {
+  primary: '#1677ff',
+  success: '#00b578',
+  warning: '#ff8f1f',
+  danger: '#ff3141',
+  white: '#ffffff',
+  weak: '#999999',
+  light: '#cccccc',
+  borderColor: '#eeeeee',
+  fontSize: '13px',
+  text: '#333333',
+};
+const CUSTOMTHEME = {
+  primary: PALETTE.primary,
+  success: PALETTE.success,
+  warning: PALETTE.warning,
+  danger: PALETTE.danger,
+  white: PALETTE.white[90],
+  weak: PALETTE.weak,
+  light: PALETTE.light,
+  borderColor: PALETTE.borderColor,
+  fontSize: PALETTE.fontSize,
+  text: PALETTE.text,
+};
+export { PALETTE, THEME, CUSTOMTHEME };

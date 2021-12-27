@@ -2,30 +2,30 @@
  * @Author: lihuan
  * @Date: 2021-11-17 21:49:09
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-08 17:15:32
+ * @LastEditTime: 2021-12-27 09:29:19
  * @Email: 17719495105@163.com
  */
 import { delay, put, takeLatest, call, all } from 'redux-saga/effects';
 
-import { fetchCaptuhaSuccess, fetchCaptuhaFail } from './action';
-import { getCaptuha } from '@/api/login/index';
+import { fetchSmsSuccess, fetchSmsFail } from './action';
+import { getSms } from '@/api/login/index';
 
 import * as actionTypes from './actionTypes';
 
-import type { ICaptuhaPending } from './types';
-import type { ICaptuha } from '@/api/login/model';
+import type { ISmsPending } from './types';
+import type { ISms } from '@/api/login/model';
 
-function* fetchCaptuha(actions: ICaptuhaPending) {
+function* fetchSms(actions: ISmsPending): Generator<any, void, ISms> {
   try {
-    const { code }: ICaptuha = yield call(getCaptuha, actions.payload.phone);
-    yield put(fetchCaptuhaSuccess({ code }));
+    const { smsCode } = yield call(getSms, actions.payload.phone);
+    yield put(fetchSmsSuccess({ smsCode }));
   } catch (err: any) {
-    yield put(fetchCaptuhaFail({ msg: err.msg }));
+    yield put(fetchSmsFail({ msg: err.msg }));
   }
 }
 
 function* loginSaga() {
-  yield all([takeLatest(actionTypes.FETCH_CAPTUHA_PENDING, fetchCaptuha)]);
+  yield all([takeLatest(actionTypes.FETCH_SMS_PENDING, fetchSms)]);
 }
 
 export default loginSaga;

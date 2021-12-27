@@ -1,20 +1,20 @@
 /*
  * @Author: lihuan
  * @Date: 2021-11-17 22:22:42
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-11-18 14:46:14
+ * @LastEditors: lihuan
+ * @LastEditTime: 2021-12-25 21:51:02
  * @Email: 17719495105@163.com
  */
 import request from '@/utils/network/index';
-import { ICaptuha } from './model';
+import { ISms } from './model';
 
 enum Api {
-  Captuha = '/api/user/captuha',
+  getSms = '/user/getSms',
 }
 
-export const getCaptuha = (phone: string) => {
-  return request.get<ICaptuha>({
-    url: Api.Captuha,
+export const getSms = (phone: string) => {
+  return request.get<ISms>({
+    url: Api.getSms,
     params: {
       phone,
     },
