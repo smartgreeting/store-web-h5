@@ -2,20 +2,18 @@
  * @Author: lihuan
  * @Date: 2021-11-17 21:46:07
  * @LastEditors: lihuan
- * @LastEditTime: 2021-12-27 22:30:52
+ * @LastEditTime: 2021-12-29 22:40:05
  * @Email: 17719495105@163.com
  */
 import { FC, Fragment, memo, useCallback } from 'react';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
-import { Button, Form, Input, NavBar, Toast } from 'antd-mobile';
 import { useTheme } from 'styled-components';
 
+import { Button, Form, Input, NavBar, Toast } from 'antd-mobile';
+
 import type { AppStore } from '@/store/reducer';
-import { getSmsActions } from '@/views/login/store/action';
 import { LoginWarpper, LoginForm } from './style';
-import CountDown from './CountDown';
 import { isPhone } from '@/utils/is';
 
 const Login: FC = () => {
@@ -24,7 +22,7 @@ const Login: FC = () => {
   // theme
   const theme = useTheme();
   // form
-  const [form] = Form.useForm<{ phone: string; smsCode: string }>();
+  const [form] = Form.useForm<{ phone: string; password: string }>();
 
   // 获取状态
   const { smsCode, pending, msg } = useSelector(
@@ -34,41 +32,24 @@ const Login: FC = () => {
     shallowEqual
   );
 
-  const dispatch = useDispatch();
-
   // 返回
   const back = () => console.log('go back');
 
   // 提交
   const onFinish = useCallback(() => {
-    const { phone, smsCode = '' } = form.getFieldsValue();
+    const { phone, password = '' } = form.getFieldsValue();
 
     if (!isPhone(phone)) {
       Toast.show('手机号码格式不正确');
       return false;
     }
-    if (smsCode === '') {
-      Toast.show('请先输入短信验证码');
+    if (password === '') {
+      Toast.show('请输入密码');
       return false;
     }
-    if (smsCode?.length < 4 || smsCode?.length > 6) {
-      Toast.show('验证码格式不正确');
-      return false;
-    }
-    console.log(phone, smsCode);
+
+    console.log(phone, password);
   }, [form]);
-
-  // 获取手机验证码
-  const getSmsCode = useCallback(() => {
-    const { phone } = form.getFieldsValue();
-
-    if (!isPhone(phone)) {
-      Toast.show('手机号码格式不正确');
-      return false;
-    }
-
-    dispatch(getSmsActions({ phone }));
-  }, [dispatch, form]);
 
   console.log(smsCode, pending, msg, 11111);
   return (
@@ -103,9 +84,6 @@ const Login: FC = () => {
           </Form.Item>
           <Form.Item name="password" label="密码">
             <Input type="password" placeholder="请输入密码" />
-          </Form.Item>
-          <Form.Item name="smsCode" label="短信验证码" extra={<CountDown getSmsCode={getSmsCode} />}>
-            <Input placeholder="请输入短信验证码" />
           </Form.Item>
         </Form>
       </LoginForm>
