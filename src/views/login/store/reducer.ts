@@ -2,7 +2,7 @@
  * @Author: lihuan
  * @Date: 2021-11-17 21:48:59
  * @LastEditors: lihuan
- * @LastEditTime: 2021-12-25 16:12:35
+ * @LastEditTime: 2021-12-30 22:18:12
  * @Email: 17719495105@163.com
  */
 import { produce, Draft } from 'immer';
@@ -11,6 +11,8 @@ import * as actionTypes from './actionTypes';
 import { LoginState, LoginActions } from './types';
 
 const initialState: LoginState = {
+  phone: '1',
+  password: '',
   smsCode: '',
   pending: false,
   msg: null,

@@ -1,11 +1,11 @@
 /*
  * @Author: lihuan
  * @Date: 2021-10-04 11:23:39
- * @LastEditTime: 2021-12-27 16:30:34
+ * @LastEditTime: 2021-12-30 22:43:21
  * @Email: 17719495105@163.com
  */
 
-import { memo, FC, useState, useEffect, Suspense } from 'react';
+import { memo, FC, Suspense } from 'react';
 
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';

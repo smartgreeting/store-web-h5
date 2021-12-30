@@ -1,7 +1,7 @@
 /*
  * @Author: lihuan
  * @Date: 2021-11-18 13:12:09
- * @LastEditTime: 2021-12-25 16:16:29
+ * @LastEditTime: 2021-12-30 22:01:00
  * @Email: 17719495105@163.com
  */
 
@@ -10,6 +10,8 @@ import * as actionTypes from './actionTypes';
 export interface LoginState {
   pending: boolean;
   smsCode: string;
+  phone: string;
+  password: string;
   msg: string | null;
 }
 

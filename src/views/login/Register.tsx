@@ -2,7 +2,7 @@
  * @Author: lihuan
  * @Date: 2021-12-25 16:35:59
  * @LastEditors: lihuan
- * @LastEditTime: 2021-12-29 20:22:31
+ * @LastEditTime: 2021-12-30 22:19:19
  * @Email: 17719495105@163.com
  */
 
@@ -46,6 +46,7 @@ const Register = () => {
 
     dispatch(getSmsActions({ phone }));
   }, [dispatch, form]);
+
   return (
     <RegisterWrapper>
       <NavBar onBack={back}>注 册</NavBar>

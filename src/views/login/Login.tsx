@@ -2,7 +2,7 @@
  * @Author: lihuan
  * @Date: 2021-11-17 21:46:07
  * @LastEditors: lihuan
- * @LastEditTime: 2021-12-29 22:40:05
+ * @LastEditTime: 2021-12-30 22:18:49
  * @Email: 17719495105@163.com
  */
 import { FC, Fragment, memo, useCallback } from 'react';
@@ -25,7 +25,7 @@ const Login: FC = () => {
   const [form] = Form.useForm<{ phone: string; password: string }>();
 
   // 获取状态
-  const { smsCode, pending, msg } = useSelector(
+  const { password, phone, smsCode, pending, msg } = useSelector(
     (state: AppStore) => ({
       ...state.login,
     }),
@@ -51,7 +51,7 @@ const Login: FC = () => {
     console.log(phone, password);
   }, [form]);
 
-  console.log(smsCode, pending, msg, 11111);
+  console.log(smsCode, pending, msg, password, phone, 22222);
   return (
     <LoginWarpper>
       <NavBar className="navbar" backArrow={false} onBack={back}>

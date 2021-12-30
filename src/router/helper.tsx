@@ -1,8 +1,8 @@
 /*
  * @Author: lihuan
  * @Date: 2021-11-28 18:30:07
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-27 16:39:28
+ * @LastEditors: lihuan
+ * @LastEditTime: 2021-12-30 22:52:18
  * @Email: 17719495105@163.com
  */
 
@@ -10,7 +10,11 @@ import React, { createContext, useContext, useMemo, useState } from 'react';
 
 import { Navigate } from 'react-router-dom';
 
+import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import { useTitle } from '@/hooks/useTitle';
+
+import { TransitionWrapper } from './style';
+import react from 'react';
 // Context
 export const AuthContext = createContext({ isLogin: false, toggleIsLogin: (isLogin: boolean) => {} });
 
@@ -44,9 +48,31 @@ export const AuthWrapper = ({
 
   useTitle(`SmartGreeting - ${title}`);
 
-  return !isAuth ? children : (isAuth && isLogin) === true ? children : <Navigate to="/login" replace />;
+  return !isAuth ? (
+    <Transition title={title}>{children}</Transition>
+  ) : (isAuth && isLogin) === true ? (
+    <Transition title={title}>{children}</Transition>
+  ) : (
+    <Transition title={title}>
+      <Navigate to="/login" replace />
+    </Transition>
+  );
 };
 
+function Transition({ children, title }: { children: react.ReactElement; title: string }) {
+  return (
+    <TransitionWrapper>
+      <SwitchTransition>
+        <CSSTransition
+          key={title}
+          addEndListener={(node, done) => node.addEventListener('transitionend', done, false)}
+          classNames="fade">
+          {children}
+        </CSSTransition>
+      </SwitchTransition>
+    </TransitionWrapper>
+  );
+}
 // import { Suspense } from 'react';
 // import { Redirect, Route, Switch } from 'react-router';
 
