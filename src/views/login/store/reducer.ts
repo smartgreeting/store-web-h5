@@ -2,7 +2,7 @@
  * @Author: lihuan
  * @Date: 2021-11-17 21:48:59
  * @LastEditors: lihuan
- * @LastEditTime: 2021-12-30 22:18:12
+ * @LastEditTime: 2022-01-01 16:58:07
  * @Email: 17719495105@163.com
  */
 import { produce, Draft } from 'immer';
@@ -11,36 +11,44 @@ import * as actionTypes from './actionTypes';
 import { LoginState, LoginActions } from './types';
 
 const initialState: LoginState = {
-  phone: '1',
-  password: '',
-  smsCode: '',
-  pending: false,
-  msg: null,
+  sms: {
+    smsCode: '',
+    pending: true,
+    status: ''
+  },
+  register: {
+    pending: true,
+    status: ''
+  },
+  login: {
+    id: 0,
+    token: '',
+    pending: true,
+    status: ''
+  }
 };
 const loginReducer = produce((draft: Draft<LoginState>, action: LoginActions) => {
   switch (action.type) {
     case actionTypes.FETCH_SMS_PENDING:
-      return {
-        ...draft,
-        smsCode: '',
-        msg: null,
-        pending: true,
-      };
-
+      draft.sms = initialState.sms
+      return
     case actionTypes.FETCH_SMS_SUCCESS:
-      return {
-        ...draft,
-        pending: false,
-        smsCode: action.payload.smsCode,
-      };
-
+      draft.sms = action.payload
+      return
     case actionTypes.FETCH_SMS_FAIL:
-      return {
-        ...draft,
-        pending: false,
-        msg: action.payload.msg,
-      };
+      draft.sms = { ...initialState.sms, ...action.payload }
+      return
+    case actionTypes.FETCH_REGISTER_PENDING:
+      draft.register = initialState.register
+      return
 
+    case actionTypes.FETCH_REGISTER_SUCCESS:
+      draft.register = action.payload
+      return
+
+    case actionTypes.FETCH_REGISTER_FAIL:
+      draft.register = action.payload
+      return
     default:
       return draft;
   }

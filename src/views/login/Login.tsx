@@ -2,12 +2,12 @@
  * @Author: lihuan
  * @Date: 2021-11-17 21:46:07
  * @LastEditors: lihuan
- * @LastEditTime: 2021-12-30 22:18:49
+ * @LastEditTime: 2022-01-01 16:52:04
  * @Email: 17719495105@163.com
  */
-import { FC, Fragment, memo, useCallback } from 'react';
+import { FC, Fragment, memo, useCallback, useEffect } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams, useLocation } from 'react-router-dom';
 import { useTheme } from 'styled-components';
 
 import { Button, Form, Input, NavBar, Toast } from 'antd-mobile';
@@ -19,13 +19,14 @@ import { isPhone } from '@/utils/is';
 const Login: FC = () => {
   // router
   const navigate = useNavigate();
+  const location = useLocation();
   // theme
   const theme = useTheme();
   // form
   const [form] = Form.useForm<{ phone: string; password: string }>();
 
   // 获取状态
-  const { password, phone, smsCode, pending, msg } = useSelector(
+  const {} = useSelector(
     (state: AppStore) => ({
       ...state.login,
     }),
@@ -50,8 +51,11 @@ const Login: FC = () => {
 
     console.log(phone, password);
   }, [form]);
-
-  console.log(smsCode, pending, msg, password, phone, 22222);
+  useEffect(() => {
+    if (location.state) {
+      form.setFieldsValue({ phone: location.state as string });
+    }
+  }, [location, form]);
   return (
     <LoginWarpper>
       <NavBar className="navbar" backArrow={false} onBack={back}>

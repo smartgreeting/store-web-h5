@@ -2,7 +2,7 @@
  * @Author: lihuan
  * @Date: 2021-11-28 18:30:07
  * @LastEditors: lihuan
- * @LastEditTime: 2021-12-30 22:52:18
+ * @LastEditTime: 2022-01-01 16:34:04
  * @Email: 17719495105@163.com
  */
 
@@ -32,6 +32,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }: { children: React.ReactElement }) => {
   const auth = useAuth();
   const contextValue = useMemo(() => auth, [auth]);
+
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 };
 

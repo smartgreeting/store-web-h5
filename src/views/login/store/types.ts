@@ -1,25 +1,27 @@
 /*
  * @Author: lihuan
  * @Date: 2021-11-18 13:12:09
- * @LastEditTime: 2021-12-30 22:01:00
+ * @LastEditTime: 2022-01-01 16:56:49
  * @Email: 17719495105@163.com
  */
 
 import * as actionTypes from './actionTypes';
 
 export interface LoginState {
-  pending: boolean;
-  smsCode: string;
-  phone: string;
-  password: string;
-  msg: string | null;
+  sms: ISmsSuccessPayload
+  register: IRegisterSuccessPayload
+  login: ILoginSuccessPayload
 }
 
-export interface ISmsSuccessPayload {
+
+export interface ICommen {
+  pending: boolean;
+  status: string;
+}
+export interface ISmsSuccessPayload extends ICommen {
   smsCode: string;
 }
-export interface ISmsFailPayload {
-  msg: string;
+export interface ISmsFailPayload extends ICommen {
 }
 export interface ISmsPendingPayload {
   phone: string;
@@ -38,4 +40,33 @@ export interface ISmsPending {
   payload: ISmsPendingPayload;
 }
 
-export type LoginActions = ISmsSuccess | ISmsFail | ISmsPending;
+export interface IRegisterSuccessPayload extends ICommen {
+
+}
+export interface IRegisterFailPayload extends ICommen {
+}
+export interface IRegisterPendingPayload {
+  phone: string;
+  password: string;
+  smsCode: string;
+}
+
+export interface IRegisterSuccess {
+  type: typeof actionTypes.FETCH_REGISTER_SUCCESS;
+  payload: IRegisterSuccessPayload;
+}
+export interface IRegisterFail {
+  type: typeof actionTypes.FETCH_REGISTER_FAIL;
+  payload: IRegisterFailPayload;
+}
+export interface IRegisterPending {
+  type: typeof actionTypes.FETCH_REGISTER_PENDING;
+  payload: IRegisterPendingPayload;
+}
+
+
+export interface ILoginSuccessPayload extends ICommen {
+  id: number;
+  token: string;
+}
+export type LoginActions = ISmsSuccess | ISmsFail | ISmsPending | IRegisterSuccess | IRegisterFail | IRegisterPending;

@@ -2,13 +2,14 @@
  * @Author: lihuan
  * @Date: 2021-11-13 20:49:18
  * @LastEditors: lihuan
- * @LastEditTime: 2021-12-25 21:53:05
+ * @LastEditTime: 2022-01-01 12:29:58
  * @Email: 17719495105@163.com
  */
 import axios from 'axios';
 import type { AxiosInstance, AxiosRequestConfig, AxiosError, AxiosResponse } from 'axios';
 import { cloneDeep } from 'lodash-es';
 import { customMessage } from '@/utils/web/customMessage';
+import { sleep } from '../share';
 export interface Result<T = any> {
   code: number;
   msg: string;
@@ -17,7 +18,6 @@ export interface Result<T = any> {
 const DURATION = 2000;
 class LHRequest {
   private axiosInstance: AxiosInstance;
-  private timer: number = 0;
   private isShow: boolean = false;
 
   constructor(options?: AxiosRequestConfig) {
@@ -37,7 +37,7 @@ class LHRequest {
         if (code === 2000) {
           return data;
         }
-        return Promise.reject(res.data).finally(() => {
+        return Promise.reject(res.data).finally(async () => {
           // 全局错误提示
           if (this.isShow === false) {
             creatToastShow({
@@ -47,10 +47,8 @@ class LHRequest {
             });
             this.isShow = true;
           }
-
-          this.timer = window.setTimeout(() => {
-            this.isShow = false;
-          }, DURATION);
+          await sleep(DURATION)
+          this.isShow = false;
         });
       },
       (err) => {
