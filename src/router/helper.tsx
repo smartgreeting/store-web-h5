@@ -2,13 +2,13 @@
  * @Author: lihuan
  * @Date: 2021-11-28 18:30:07
  * @LastEditors: lihuan
- * @LastEditTime: 2022-01-01 16:34:04
+ * @LastEditTime: 2022-01-02 14:07:41
  * @Email: 17719495105@163.com
  */
 
 import React, { createContext, useContext, useMemo, useState } from 'react';
 
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import { useTitle } from '@/hooks/useTitle';
@@ -19,20 +19,13 @@ import react from 'react';
 export const AuthContext = createContext({ isLogin: false, toggleIsLogin: (isLogin: boolean) => {} });
 
 export const useAuth = () => {
-  const [isLogin, setIsLogin] = useState(true);
-  const toggleIsLogin = (value: boolean) => {
-    setIsLogin(value);
-  };
-  return {
-    isLogin,
-    toggleIsLogin,
-  };
+  return useContext(AuthContext);
 };
 // Provider
 export const AuthProvider = ({ children }: { children: React.ReactElement }) => {
-  const auth = useAuth();
-  const contextValue = useMemo(() => auth, [auth]);
-
+  const [isLogin, setIsLogin] = useState(localStorage.getItem('token') ? true : false);
+  const toggleIsLogin = setIsLogin;
+  const contextValue = { isLogin, toggleIsLogin };
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 };
 
@@ -45,7 +38,9 @@ export const AuthWrapper = ({
   title: string;
   isAuth: boolean;
 }) => {
-  const { isLogin } = useContext(AuthContext);
+  const location = useLocation();
+  console.log(location, 11);
+  const { isLogin } = useAuth();
 
   useTitle(`SmartGreeting - ${title}`);
 
@@ -55,7 +50,7 @@ export const AuthWrapper = ({
     <Transition title={title}>{children}</Transition>
   ) : (
     <Transition title={title}>
-      <Navigate to="/login" replace />
+      <Navigate to="/login" state={{ from: location }} replace />
     </Transition>
   );
 };
@@ -65,7 +60,10 @@ function Transition({ children, title }: { children: react.ReactElement; title: 
     <TransitionWrapper>
       <SwitchTransition>
         <CSSTransition
-          key={title}
+          key={1}
+          // TODO: re-render more once
+          // components in CSSTransition will be render more than once if we use context api #717
+          // key={title}
           addEndListener={(node, done) => node.addEventListener('transitionend', done, false)}
           classNames="fade">
           {children}

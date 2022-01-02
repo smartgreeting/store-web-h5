@@ -2,12 +2,12 @@
  * @Author: lihuan
  * @Date: 2021-11-17 21:46:07
  * @LastEditors: lihuan
- * @LastEditTime: 2022-01-01 16:52:04
+ * @LastEditTime: 2022-01-02 14:03:56
  * @Email: 17719495105@163.com
  */
 import { FC, Fragment, memo, useCallback, useEffect } from 'react';
-import { useSelector, shallowEqual } from 'react-redux';
-import { useNavigate, useParams, useSearchParams, useLocation } from 'react-router-dom';
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useTheme } from 'styled-components';
 
 import { Button, Form, Input, NavBar, Toast } from 'antd-mobile';
@@ -15,8 +15,10 @@ import { Button, Form, Input, NavBar, Toast } from 'antd-mobile';
 import type { AppStore } from '@/store/reducer';
 import { LoginWarpper, LoginForm } from './style';
 import { isPhone } from '@/utils/is';
+import { getLoginActions } from './store/action';
+import { useAuth } from '@/router/helper';
 
-const Login: FC = () => {
+const LHLogin: FC = () => {
   // router
   const navigate = useNavigate();
   const location = useLocation();
@@ -24,19 +26,20 @@ const Login: FC = () => {
   const theme = useTheme();
   // form
   const [form] = Form.useForm<{ phone: string; password: string }>();
+  // dispatch
+  const dispatch = useDispatch();
 
+  // auth
+  const { toggleIsLogin } = useAuth();
   // 获取状态
-  const {} = useSelector(
+  const { login } = useSelector(
     (state: AppStore) => ({
       ...state.login,
     }),
     shallowEqual
   );
 
-  // 返回
-  const back = () => console.log('go back');
-
-  // 提交
+  // 登录
   const onFinish = useCallback(() => {
     const { phone, password = '' } = form.getFieldsValue();
 
@@ -49,16 +52,26 @@ const Login: FC = () => {
       return false;
     }
 
-    console.log(phone, password);
-  }, [form]);
+    dispatch(getLoginActions({ phone, password }));
+  }, [form, dispatch]);
+
   useEffect(() => {
-    if (location.state) {
-      form.setFieldsValue({ phone: location.state as string });
+    const from = (location.state as any)?.from?.pathname || '/';
+    if (login.token) {
+      toggleIsLogin(true);
+      localStorage.setItem('token', login.token);
+      navigate(from, { replace: true });
+    }
+  }, [login, navigate, location, toggleIsLogin]);
+
+  useEffect(() => {
+    if ((location.state as any)?.phone) {
+      form.setFieldsValue({ phone: (location.state as Record<string, string>).phone });
     }
   }, [location, form]);
   return (
     <LoginWarpper>
-      <NavBar className="navbar" backArrow={false} onBack={back}>
+      <NavBar className="navbar" backArrow={false}>
         登 录
       </NavBar>
       <LoginForm>
@@ -95,4 +108,4 @@ const Login: FC = () => {
   );
 };
 
-export default memo(Login);
+export default memo(LHLogin);

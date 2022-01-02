@@ -1,7 +1,7 @@
 /*
  * @Author: lihuan
  * @Date: 2021-11-18 13:12:09
- * @LastEditTime: 2022-01-01 16:56:49
+ * @LastEditTime: 2022-01-01 19:28:50
  * @Email: 17719495105@163.com
  */
 
@@ -69,4 +69,25 @@ export interface ILoginSuccessPayload extends ICommen {
   id: number;
   token: string;
 }
-export type LoginActions = ISmsSuccess | ISmsFail | ISmsPending | IRegisterSuccess | IRegisterFail | IRegisterPending;
+export interface ILoginFailPayload extends ICommen {
+}
+export interface ILoginPendingPayload {
+  phone: string;
+  password: string;
+}
+export interface ILoginSuccess {
+  type: typeof actionTypes.FETCH_LOGIN_SUCCESS;
+  payload: ILoginSuccessPayload;
+}
+export interface ILoginFail {
+  type: typeof actionTypes.FETCH_LOGIN_FAIL;
+  payload: ILoginFailPayload;
+}
+export interface ILoginPending {
+  type: typeof actionTypes.FETCH_LOGIN_PENDING;
+  payload: ILoginPendingPayload;
+}
+
+export type LoginActions = ISmsSuccess | ISmsFail | ISmsPending |
+  IRegisterSuccess | IRegisterFail | IRegisterPending |
+  ILoginSuccess | ILoginFail | ILoginPending;

@@ -2,7 +2,7 @@
  * @Author: lihuan
  * @Date: 2021-12-25 16:35:59
  * @LastEditors: lihuan
- * @LastEditTime: 2022-01-01 16:45:59
+ * @LastEditTime: 2022-01-01 23:47:09
  * @Email: 17719495105@163.com
  */
 
@@ -14,7 +14,7 @@ import { useTheme } from 'styled-components';
 import { Button, Form, Input, NavBar, Toast } from 'antd-mobile';
 
 import { RegisterWrapper, RegisterForm } from './style';
-import { is, isPhone } from '@/utils/is';
+import { isPhone } from '@/utils/is';
 import { sleep } from '@/utils/share';
 import { getSmsActions, getRegisterActions } from './store/action';
 import CountDown from './CountDown';
@@ -25,10 +25,10 @@ interface IRegister {
   surePassword: string;
   smsCode: string;
 }
-const Register = () => {
+const LHRegister = () => {
   const isMounted = useRef(false);
   // 获取状态
-  const { sms, register } = useSelector(
+  const { register } = useSelector(
     (state: AppStore) => ({
       ...state.login,
     }),
@@ -76,14 +76,13 @@ const Register = () => {
     dispatch(getSmsActions({ phone }));
   }, [dispatch, form]);
 
-  console.log(sms, register);
   useEffect(() => {
     isMounted.current = false;
   }, []);
   useEffect(() => {
     if (register.status === 'ok' && isMounted.current) {
       sleep(1000).then(() => {
-        navigate('/login', { state: form.getFieldValue('phone') });
+        navigate('/login', { state: { phone: form.getFieldValue('phone') } });
       });
     }
     isMounted.current = true;
@@ -131,4 +130,4 @@ const Register = () => {
   );
 };
 
-export default memo(Register);
+export default memo(LHRegister);

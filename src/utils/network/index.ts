@@ -2,7 +2,7 @@
  * @Author: lihuan
  * @Date: 2021-11-13 20:49:18
  * @LastEditors: lihuan
- * @LastEditTime: 2022-01-01 12:29:58
+ * @LastEditTime: 2022-01-02 13:56:28
  * @Email: 17719495105@163.com
  */
 import axios from 'axios';
@@ -10,6 +10,7 @@ import type { AxiosInstance, AxiosRequestConfig, AxiosError, AxiosResponse } fro
 import { cloneDeep } from 'lodash-es';
 import { customMessage } from '@/utils/web/customMessage';
 import { sleep } from '../share';
+import store from "@/store";
 export interface Result<T = any> {
   code: number;
   msg: string;
@@ -24,6 +25,13 @@ class LHRequest {
     this.axiosInstance = axios.create(options);
     this.axiosInstance.interceptors.request.use(
       (config: AxiosRequestConfig) => {
+        const token = store.getState().login.login.token || localStorage.getItem('token')
+        if (token) {
+          config.headers = {
+            ...config.headers,
+            authorization: `Bearer ${token}`
+          }
+        }
         return config;
       },
       (err) => {
