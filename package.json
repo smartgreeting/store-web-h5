@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@craco/craco": "^6.3.0",
-    "antd-mobile": "^5.0.0-rc.8",
+    "antd-mobile": "^5.0.0-rc.12",
     "axios": "^0.24.0",
     "craco-alias": "^3.0.1",
     "immer": "^9.0.6",

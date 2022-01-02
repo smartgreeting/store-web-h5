@@ -2,11 +2,11 @@
  * @Author: lihuan
  * @Date: 2021-11-28 18:30:07
  * @LastEditors: lihuan
- * @LastEditTime: 2022-01-02 14:07:41
+ * @LastEditTime: 2022-01-02 22:02:48
  * @Email: 17719495105@163.com
  */
 
-import React, { createContext, useContext, useMemo, useState } from 'react';
+import React, { createContext, FC, useContext, useState } from 'react';
 
 import { Navigate, useLocation } from 'react-router-dom';
 
@@ -22,22 +22,14 @@ export const useAuth = () => {
   return useContext(AuthContext);
 };
 // Provider
-export const AuthProvider = ({ children }: { children: React.ReactElement }) => {
+export const AuthProvider: FC = ({ children }) => {
   const [isLogin, setIsLogin] = useState(localStorage.getItem('token') ? true : false);
   const toggleIsLogin = setIsLogin;
   const contextValue = { isLogin, toggleIsLogin };
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 };
 
-export const AuthWrapper = ({
-  children,
-  title,
-  isAuth,
-}: {
-  children: React.ReactElement;
-  title: string;
-  isAuth: boolean;
-}) => {
+export const AuthWrapper: FC<{ title: string; isAuth: boolean }> = ({ children, title, isAuth }) => {
   const location = useLocation();
   console.log(location, 11);
   const { isLogin } = useAuth();
@@ -55,7 +47,7 @@ export const AuthWrapper = ({
   );
 };
 
-function Transition({ children, title }: { children: react.ReactElement; title: string }) {
+function Transition({ children, title }: { children: react.ReactNode; title: string }) {
   return (
     <TransitionWrapper>
       <SwitchTransition>
