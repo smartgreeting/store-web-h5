@@ -2,7 +2,7 @@
  * @Author: lihuan
  * @Date: 2022-01-01 23:43:51
  * @LastEditors: lihuan
- * @LastEditTime: 2022-01-02 22:57:51
+ * @LastEditTime: 2022-01-04 19:44:24
  * @Email: 17719495105@163.com
  */
 
@@ -17,7 +17,7 @@ const LHSwiper = ({ list }: { list: IBanner[] }) => {
   return (
     <SwiperWrapper>
       {list.length > 0 ? (
-        <Swiper autoplay loop>
+        <Swiper autoplay loop style={{ '--border-radius': '2vw' }}>
           {list.map((item) => (
             <Swiper.Item key={item.id} className="container">
               <img src={item.url} alt="" />

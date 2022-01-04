@@ -2,7 +2,7 @@
  * @Author: lihuan
  * @Date: 2021-11-28 18:30:07
  * @LastEditors: lihuan
- * @LastEditTime: 2022-01-02 22:02:48
+ * @LastEditTime: 2022-01-03 20:30:43
  * @Email: 17719495105@163.com
  */
 
@@ -31,7 +31,6 @@ export const AuthProvider: FC = ({ children }) => {
 
 export const AuthWrapper: FC<{ title: string; isAuth: boolean }> = ({ children, title, isAuth }) => {
   const location = useLocation();
-  console.log(location, 11);
   const { isLogin } = useAuth();
 
   useTitle(`SmartGreeting - ${title}`);

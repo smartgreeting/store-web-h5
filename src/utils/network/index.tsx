@@ -2,21 +2,24 @@
  * @Author: lihuan
  * @Date: 2021-11-13 20:49:18
  * @LastEditors: lihuan
- * @LastEditTime: 2022-01-02 13:56:28
+ * @LastEditTime: 2022-01-03 20:38:10
  * @Email: 17719495105@163.com
  */
 import axios from 'axios';
 import type { AxiosInstance, AxiosRequestConfig, AxiosError, AxiosResponse } from 'axios';
 import { cloneDeep } from 'lodash-es';
+import { Navigate } from 'react-router';
+
 import { customMessage } from '@/utils/web/customMessage';
 import { sleep } from '../share';
-import store from "@/store";
+import store from '@/store';
+import { AuthProvider } from '@/router/helper';
 export interface Result<T = any> {
   code: number;
   msg: string;
   data: T;
 }
-const DURATION = 2000;
+const DURATION = 1500;
 class LHRequest {
   private axiosInstance: AxiosInstance;
   private isShow: boolean = false;
@@ -25,12 +28,12 @@ class LHRequest {
     this.axiosInstance = axios.create(options);
     this.axiosInstance.interceptors.request.use(
       (config: AxiosRequestConfig) => {
-        const token = store.getState().login.login.token || localStorage.getItem('token')
+        const token = store.getState().login.login.token || localStorage.getItem('token');
         if (token) {
           config.headers = {
             ...config.headers,
-            authorization: `Bearer ${token}`
-          }
+            authorization: `Bearer ${token}`,
+          };
         }
         return config;
       },
@@ -45,18 +48,22 @@ class LHRequest {
         if (code === 2000) {
           return data;
         }
+
         return Promise.reject(res.data).finally(async () => {
           // 全局错误提示
           if (this.isShow === false) {
             creatToastShow({
               content: `${code}: ${msg}`,
-              icon: 'loading',
               duration: DURATION,
             });
             this.isShow = true;
           }
-          await sleep(DURATION)
+          await sleep(DURATION);
           this.isShow = false;
+          if (code === 2004) {
+            localStorage.setItem('token', '');
+            window.location.reload();
+          }
         });
       },
       (err) => {
