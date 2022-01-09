@@ -2,7 +2,7 @@
  * @Author: lihuan
  * @Date: 2021-11-13 20:33:11
  * @LastEditors: lihuan
- * @LastEditTime: 2022-01-08 00:08:38
+ * @LastEditTime: 2022-01-09 20:55:53
  * @Email: 17719495105@163.com
  */
 
@@ -15,7 +15,7 @@ import Swiper from './swiper/Swiper';
 import Navbar from './navbar/Navbar';
 import Grid from './grid/Grid';
 import Seckill from './seckill/Seckill';
-
+import List from './list/List';
 import { getBannerActions } from './store/action';
 import { HomeWrapper } from './style';
 
@@ -44,6 +44,7 @@ const LHHome = () => {
       />
       <Grid />
       <Seckill />
+      <List />
     </HomeWrapper>
   );
 };
