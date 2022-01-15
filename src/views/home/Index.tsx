@@ -2,7 +2,7 @@
  * @Author: lihuan
  * @Date: 2021-11-13 20:33:11
  * @LastEditors: lihuan
- * @LastEditTime: 2022-01-09 20:55:53
+ * @LastEditTime: 2022-01-15 21:18:41
  * @Email: 17719495105@163.com
  */
 
@@ -16,12 +16,12 @@ import Navbar from './navbar/Navbar';
 import Grid from './grid/Grid';
 import Seckill from './seckill/Seckill';
 import List from './list/List';
-import { getBannerActions } from './store/action';
+import { getBannerActions, getProductListActions } from './store/action';
 import { HomeWrapper } from './style';
 
 const LHHome = () => {
   // state
-  const { banner } = useSelector((state: AppStore) => ({
+  const { banner, productList } = useSelector((state: AppStore) => ({
     ...state.product,
   }));
   //dispatch
@@ -30,8 +30,9 @@ const LHHome = () => {
   // effect
   useEffect(() => {
     dispatch(getBannerActions());
+    dispatch(getProductListActions({ page: 1, pageSize: 2 }));
   }, [dispatch]);
-  console.log(banner);
+  console.log(banner, productList);
   return (
     <HomeWrapper>
       <Navbar />
