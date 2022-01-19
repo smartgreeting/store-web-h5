@@ -2,7 +2,7 @@
  * @Author: lihuan
  * @Date: 2022-01-07 22:57:36
  * @LastEditors: lihuan
- * @LastEditTime: 2022-01-07 23:57:19
+ * @LastEditTime: 2022-01-18 19:53:38
  * @Email: 17719495105@163.com
  */
 
@@ -27,7 +27,7 @@ export const GridWrapper = styled.div`
 `
 
 
-export const GridWItemrapper = styled.div`
+export const GridItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
