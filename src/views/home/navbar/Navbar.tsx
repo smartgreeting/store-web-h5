@@ -2,7 +2,7 @@
  * @Author: lihuan
  * @Date: 2022-01-04 19:58:02
  * @LastEditors: lihuan
- * @LastEditTime: 2022-01-07 22:25:48
+ * @LastEditTime: 2022-01-23 21:49:11
  * @Email: 17719495105@163.com
  */
 
@@ -30,7 +30,7 @@ export const HomeNavbar = () => {
   );
   return (
     <NavBarWrapper>
-      <LHNavbar right={right} left={<SvgMenu className="memu" />}>
+      <LHNavbar style={{ '--background-color': '#d93331' }} right={right} left={<SvgMenu className="memu" />}>
         <div className="nav">
           <span className="logo">LH</span>
           <SvgVertical className="vertical" fill="#aaa" />

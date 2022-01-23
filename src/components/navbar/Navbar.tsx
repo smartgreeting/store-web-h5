@@ -2,7 +2,7 @@
  * @Author: lihuan
  * @Date: 2022-01-02 21:39:30
  * @LastEditors: lihuan
- * @LastEditTime: 2022-01-02 23:05:50
+ * @LastEditTime: 2022-01-23 21:47:50
  * @Email: 17719495105@163.com
  */
 
@@ -15,7 +15,7 @@ interface INavBarProps {
   right?: ReactNode;
   style?: CSSProperties & Partial<Record<style, string>>;
 }
-type style = '--font-size';
+type style = '--font-size' | '--background-color';
 
 export const LHNavbar: FC<INavBarProps> = (props) => {
   return (

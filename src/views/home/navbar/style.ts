@@ -2,16 +2,17 @@
  * @Author: lihuan
  * @Date: 2022-01-04 19:58:14
  * @LastEditors: lihuan
- * @LastEditTime: 2022-01-07 22:33:38
+ * @LastEditTime: 2022-01-23 21:49:06
  * @Email: 17719495105@163.com
  */
 import styled from "styled-components";
 
 export const NavBarWrapper = styled.div`
-    background-color:#d93331;
     height:44px;
     display:flex;
     align-items:center;
+    position: fixed;
+    z-index:1000;
     .memu{
       font-size:32px;
     }

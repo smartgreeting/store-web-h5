@@ -2,15 +2,17 @@
  * @Author: lihuan
  * @Date: 2022-01-08 21:13:14
  * @LastEditors: lihuan
- * @LastEditTime: 2022-01-10 22:51:37
+ * @LastEditTime: 2022-01-22 13:38:23
  * @Email: 17719495105@163.com
  */
 import { FC } from 'react';
 import { ItemWrapper } from './style';
-
-const ListItem: FC = () => {
+interface IProps {
+  onClick: () => void;
+}
+const ListItem: FC<IProps> = ({ onClick }) => {
   return (
-    <ItemWrapper>
+    <ItemWrapper onClick={onClick}>
       <img
         className="good-img"
         src="https://img10.360buyimg.com/mobilecms/s360x360_jfs/t1/52739/20/16977/340994/613598e8E97207605/41d2743ddcd61354.jpg!q70.dpg.webp"
